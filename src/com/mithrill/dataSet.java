@@ -30,7 +30,7 @@ public class dataSet {
     }
 
     private static Data createData(String [] metadata){
-        double input_x = Double.parseDouble(metadata[1]);
+        double input_x = Double.parseDouble(metadata[5]);
         double output_y = Double.parseDouble(metadata[8]);
 
         return new Data(input_x, output_y);
