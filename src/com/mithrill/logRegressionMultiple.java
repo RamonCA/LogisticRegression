@@ -1,25 +1,25 @@
 package com.mithrill;
 
-import java.util.*;
-//import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
-public class logRegression {
-    List<Data> dataSet = com.mithrill.dataSet.readData("arrayD2.txt");
+public class logRegressionMultiple {
+    List<Data> dataSet = dataSetSimple.readData("arrayD2.txt");
     int size = dataSet.size();
 
-    /*private double[][] input_x = {{1, 1, 1}, {1, 4, 2}, {1, 2, 4}};
-    private double[][] output_y = {{0}, {1}, {1},};
-    double[] weights = {0.0,0.0,0.0};*/
+    int sizeInner = dataSet.get(0).inputs.size();
 
-    private final double[][] input_x = new double [size][2];
+    private final double[][] input_x = new double [size][sizeInner + 1];
     private final double[][] output_y = new double [size][1];
     double[] weights = new double [size];
 
-    private void getData (){
+    private void getDataMultiple(){
         for (int i = 0; i < size; i++){
             Data aux = dataSet.get(i);
             input_x[i][0] = 1;
-            input_x[i][1] = aux.getInput_x();
+            for (int j = 1; j < sizeInner + 1; j++) {
+                input_x[i][j] = aux.getInputs().get(j - 1);
+            }
             output_y[i][0] = aux.getOutput_y();
 
         }
@@ -27,9 +27,15 @@ public class logRegression {
         Arrays.fill(weights, 0.0);
     }
 
-    public double [] costFuncMin() {
-        getData();
-        for (int i = 0; i < 8000; i++) {
+    public double [] generateWeights(){
+        getDataMultiple();
+        CostFunction calculator = new CostFunction(input_x,output_y,weights);
+        return calculator.costFuncMin();
+    }
+
+    /*public double [] costFuncMin() {
+        getDataMultiple();
+        for (int i = 0; i < 18000; i++) {
             double[] tempWeights = new double[weights.length];
             double sum = 0;
             weightSum(tempWeights, sum);
@@ -54,9 +60,9 @@ public class logRegression {
 
     private Double gradientCalc(int index) {
         double init = weights[0];
-        for (int i = 1; i < weights.length; i++) {
+        for (int i = 1; i < input_x[0].length; i++) {
             init += weights[i] * input_x[i][index];
         }
         return init;
-    }
+    }*/
 }
