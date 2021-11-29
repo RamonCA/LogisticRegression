@@ -13,7 +13,7 @@ public class CostFunction {
 
     public double [] costFuncMin() {
         double [] answer = new double[input_x[0].length];
-        for (int i = 0; i < 10000; i++) {
+        for (int i = 0; i < 1000000; i++) {
             double[] tempWeights = new double[weights.length];
             double sum = 0;
             weightSum(tempWeights, sum);
@@ -31,7 +31,7 @@ public class CostFunction {
                 sum += ((1 / ( 1 + Math.exp( - gradientCalc(k))))
                         - output_y[k][0] ) * input_x[j][k];
             }
-            double alpha = 0.001;
+            double alpha = 0.0000003;
             tempWeights[j] = weights[j] - alpha * sum;
             sum = 0;
         }

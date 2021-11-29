@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class logRegressionMultiple {
-    List<Data> dataSet = dataSetSimple.readData("arrayD2.txt");
+    List<Data> dataSet = dataSetSimple.readData("dt2.txt");
     int size = dataSet.size();
 
     int sizeInner = dataSet.get(0).inputs.size();
